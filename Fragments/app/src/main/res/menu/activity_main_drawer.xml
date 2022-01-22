@@ -24,5 +24,9 @@
             android:id="@+id/ordersFragment"
             android:icon="@drawable/ic_order"
             android:title="Orders" />
+        <item
+            android:id="@id/mapFragment"
+            android:icon="@drawable/ic_map"
+            android:title="Map" />
     </group>
 </menu>

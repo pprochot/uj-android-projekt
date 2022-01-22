@@ -46,11 +46,19 @@
         <action
             android:id="@+id/action_homeFragment_to_productsFragment"
             app:destination="@id/productsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderInfoFragment"
         android:name="com.github.pprochot.uj.android.fragments.OrderInfoFragment"
         tools:layout="@layout/fragment_order_info"
         android:label="OrderInfoFragment" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.github.pprochot.uj.android.fragments.MapsFragment"
+        tools:layout="@layout/fragment_maps"
+        android:label="MapFragment" />
 
 </navigation>
