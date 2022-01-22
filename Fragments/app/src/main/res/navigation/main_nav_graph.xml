@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/categoriesFragment"
-        android:name="com.github.pprochot.uj.android.fragments.fragments.CategoriesFragment"
+        android:name="com.github.pprochot.uj.android.fragments.CategoriesFragment"
         android:label="CategoriesFragment"
         tools:layout="@layout/fragment_categories"/>
     <fragment
         android:id="@+id/productsFragment"
-        android:name="com.github.pprochot.uj.android.fragments.fragments.ProductsFragment"
+        android:name="com.github.pprochot.uj.android.fragments.ProductsFragment"
         android:label="ProductsFragment"
         tools:layout="@layout/fragment_products"/>
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.github.pprochot.uj.android.fragments.fragments.CartFragment"
+        android:name="com.github.pprochot.uj.android.fragments.CartFragment"
         android:label="CartFragment"
         tools:layout="@layout/fragment_cart"/>
     <fragment
         android:id="@+id/ordersFragment"
-        android:name="com.github.pprochot.uj.android.fragments.fragments.OrdersFragment"
+        android:name="com.github.pprochot.uj.android.fragments.OrdersFragment"
         tools:layout="@layout/fragment_orders"
         android:label="OrdersFragment" >
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.github.pprochot.uj.android.fragments.fragments.HomeFragment"
+        android:name="com.github.pprochot.uj.android.fragments.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/orderInfoFragment"
-        android:name="com.github.pprochot.uj.android.fragments.fragments.OrderInfoFragment"
+        android:name="com.github.pprochot.uj.android.fragments.OrderInfoFragment"
         tools:layout="@layout/fragment_order_info"
         android:label="OrderInfoFragment" />
 

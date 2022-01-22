@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".fragments.RegisterFragment">
+        tools:context=".fragments2.RegisterFragment">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/nickname_inputlayout_registration"

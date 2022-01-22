@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.github.pprochot.uj.android.fragments.fragments.SignInFragment"
+        android:name="com.github.pprochot.uj.android.fragments.SignInFragment"
         android:label="SignInFragment"
         tools:layout="@layout/fragment_sign_in">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.github.pprochot.uj.android.fragments.fragments.SignUpFragment"
+        android:name="com.github.pprochot.uj.android.fragments.SignUpFragment"
         android:label="SignUpFragment"
         tools:layout="@layout/fragment_sign_up">
         <action
@@ -28,6 +28,6 @@
     </fragment>
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.github.pprochot.uj.android.fragments.activities.MainActivity"
+        android:name="com.github.pprochot.uj.android.activities.MainActivity"
         android:label="MainActivity" />
 </navigation>
