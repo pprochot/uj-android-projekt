@@ -8,14 +8,6 @@
     android:orientation="vertical"
     android:id="@+id/fr_categories">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Uncheck all"
-        android:textSize="16dp" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_categories"
         android:layout_width="match_parent"

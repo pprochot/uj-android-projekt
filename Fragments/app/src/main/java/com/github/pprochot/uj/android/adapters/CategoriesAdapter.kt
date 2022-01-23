@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.github.pprochot.uj.android.R
+import com.github.pprochot.uj.android.realmmodels.Category
 
-class CategoriesAdapter(private var context: Context) :
+class CategoriesAdapter(private val context: Context, private val categories: List<Category>) : //todo change to msth else?
     RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -23,11 +24,12 @@ class CategoriesAdapter(private var context: Context) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.nameView.text = "Heelu"
-        holder.descriptionView.text = "Heelu Descr"
+        val category = categories[position]
+        holder.nameView.text = category.name
+        holder.descriptionView.text = category.description
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return categories.size
     }
 }

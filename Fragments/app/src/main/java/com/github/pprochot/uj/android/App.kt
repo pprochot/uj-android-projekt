@@ -2,25 +2,11 @@ package com.github.pprochot.uj.android
 
 import android.app.Application
 import com.github.pprochot.uj.android.domain.ListResponse
-import com.github.pprochot.uj.android.domain.response.CategoryResponse
-import com.github.pprochot.uj.android.domain.response.OrderResponse
-import com.github.pprochot.uj.android.domain.response.ProductResponse
-import com.github.pprochot.uj.android.domain.response.UserResponse
-import com.github.pprochot.uj.android.mappers.CartMapper
-import com.github.pprochot.uj.android.mappers.CategoryMapper
 import com.github.pprochot.uj.android.mappers.MapperContainer
-import com.github.pprochot.uj.android.mappers.OrderMapper
-import com.github.pprochot.uj.android.mappers.ProductMapper
 import com.github.pprochot.uj.android.mappers.RealmModelMapper
-import com.github.pprochot.uj.android.mappers.UserMapper
-import com.github.pprochot.uj.android.realmmodels.Product
-import com.github.pprochot.uj.android.realmmodels.User
-import com.github.pprochot.uj.android.services.OrderService
 import com.github.pprochot.uj.android.services.ServiceContainer
-import com.github.pprochot.uj.android.services.UserService
 import dagger.hilt.android.HiltAndroidApp
 import io.realm.Realm
-import io.realm.RealmConfiguration
 import io.realm.RealmObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,15 +23,11 @@ class App : Application() {
     @Inject
     lateinit var mappers: MapperContainer
 
+    @Inject
+    lateinit var realm: Realm
+
     override fun onCreate() {
         super.onCreate()
-
-        Realm.init(this)
-        val config = RealmConfiguration.Builder()
-            .allowQueriesOnUiThread(true)
-            .allowWritesOnUiThread(true)
-            .build()
-        val realm = Realm.getInstance(config)
         fetchDataFromServicesAsync(realm)
     }
 
