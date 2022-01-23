@@ -1,15 +1,12 @@
-package com.github.pprochot.uj.android.models
+package com.github.pprochot.uj.android.realmmodels
 
 import io.realm.RealmList
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
-import java.util.*
 
-open class Order : RealmObject() {
+open class Cart : RealmObject() {
     @PrimaryKey
     var id: Int = 0
     var products: RealmList<Product> = RealmList()
-    var customer: User? = null
-    var date = Date()
-    var cost: Money? = null
+    var owner: User? = null
 }

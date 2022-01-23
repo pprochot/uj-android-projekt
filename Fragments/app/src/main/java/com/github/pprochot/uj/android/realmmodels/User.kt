@@ -1,4 +1,4 @@
-package com.github.pprochot.uj.android.models
+package com.github.pprochot.uj.android.realmmodels
 
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
