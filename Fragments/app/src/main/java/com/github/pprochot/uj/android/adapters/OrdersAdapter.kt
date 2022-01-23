@@ -9,18 +9,24 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.github.pprochot.uj.android.R
 import com.github.pprochot.uj.android.fragments.OrdersFragmentDirections
+import com.github.pprochot.uj.android.realmmodels.Order
 
-class OrdersAdapter(private var context: Context) :
+class OrdersAdapter(private val context: Context, private val orders: List<Order>) :
     RecyclerView.Adapter<OrdersAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        var orderId: Long? = null
         val dateView: TextView = itemView.findViewById(R.id.order_date)
         val orderCost: TextView = itemView.findViewById(R.id.order_cost)
 
         init {
-            val toOrderInfo = OrdersFragmentDirections.actionOrdersFragmentToOrderInfoFragment()
             itemView.setOnClickListener {
-                it.findNavController().navigate(toOrderInfo)
+                if (orderId != null) {
+                    val toOrderInfo =
+                        OrdersFragmentDirections.actionOrdersFragmentToOrderInfoFragment(orderId!!)
+                    it.findNavController().navigate(toOrderInfo)
+                }
             }
         }
     }
@@ -32,11 +38,13 @@ class OrdersAdapter(private var context: Context) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.dateView.text = "Date"
-        holder.orderCost.text = "Cooost"
+        val order = orders[position]
+        holder.orderId = order.id.toLong()
+        holder.dateView.text = order.date.toString() //TODO incorrect date
+        holder.orderCost.text = order.cost?.dbValue
     }
 
     override fun getItemCount(): Int {
-        return 7
+        return orders.size
     }
 }

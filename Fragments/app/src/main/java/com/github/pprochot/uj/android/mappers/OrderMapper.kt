@@ -5,6 +5,9 @@ import com.github.pprochot.uj.android.domain.response.ProductResponse
 import com.github.pprochot.uj.android.realmmodels.Money
 import com.github.pprochot.uj.android.realmmodels.Order
 import com.github.pprochot.uj.android.realmmodels.Product
+import java.sql.Timestamp
+import java.time.ZoneId
+import java.util.*
 import javax.inject.Inject
 
 class OrderMapper @Inject constructor(
@@ -20,7 +23,7 @@ class OrderMapper @Inject constructor(
     override fun map(orderResponse: OrderResponse): Order {
         val order = Order()
         order.id = orderResponse.id
-        order.date = orderResponse.date.toDate()
+        order.date = Date.from(orderResponse.date.atZone(ZoneId.systemDefault()).toInstant())
         order.customer = userMapper.map(orderResponse.user)
         order.cost = Money(orderResponse.cost)
         productMapper.mapList(orderResponse.products).forEach {

@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.github.pprochot.uj.android.R
+import com.github.pprochot.uj.android.realmmodels.Product
 import java.math.BigDecimal
 
-class ProductsInOrderAdapter(private var context: Context) :
+class ProductsInOrderAdapter(private val context: Context, private val products: List<Product>) :
     RecyclerView.Adapter<ProductsInOrderAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -27,13 +28,14 @@ class ProductsInOrderAdapter(private var context: Context) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.nameView.text = "Heelu"
-        holder.categoryView.text = "Ctg"
-        holder.descriptionView.text = "Heelu Descr"
-        holder.cost.text = BigDecimal.ONE.toString()
+        val product = products[position]
+        holder.nameView.text = product.name
+        holder.categoryView.text = product.category?.name
+        holder.descriptionView.text = product.description
+        holder.cost.text = product.cost?.value.toString()
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return products.size
     }
 }

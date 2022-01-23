@@ -9,7 +9,11 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.time.Instant
+import java.time.LocalDateTime
 import java.time.OffsetDateTime
+import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import javax.inject.Singleton
 
@@ -20,11 +24,11 @@ class ServicesModule {
     @Provides
     @Singleton
     fun gsonConverterFactory(): GsonConverterFactory {
-        val offsetDateTimeDeserializer = JsonDeserializer { json, typeOfT, context ->
-            OffsetDateTime.parse(json.asString, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+        val localDateTimeDeserializer = JsonDeserializer { json, typeOfT, context ->
+            LocalDateTime.ofInstant(Instant.ofEpochMilli(json.asLong), ZoneId.systemDefault())
         }
         val gson = GsonBuilder()
-            .registerTypeAdapter(OffsetDateTime::class.java, offsetDateTimeDeserializer)
+            .registerTypeAdapter(LocalDateTime::class.java, localDateTimeDeserializer)
             .create()
         return GsonConverterFactory.create(gson)
     }
@@ -44,11 +48,13 @@ class ServicesModule {
 
     @Provides
     @Singleton
-    fun categoryService(retrofit: Retrofit): CategoryService = retrofit.create(CategoryService::class.java)
+    fun categoryService(retrofit: Retrofit): CategoryService =
+        retrofit.create(CategoryService::class.java)
 
     @Provides
     @Singleton
-    fun productService(retrofit: Retrofit): ProductService = retrofit.create(ProductService::class.java)
+    fun productService(retrofit: Retrofit): ProductService =
+        retrofit.create(ProductService::class.java)
 
     @Provides
     @Singleton

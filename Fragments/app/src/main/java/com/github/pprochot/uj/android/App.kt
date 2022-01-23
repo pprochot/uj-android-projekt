@@ -67,7 +67,7 @@ class App : Application() {
 
         override fun onFailure(call: Call<ListResponse<ResponseModel>>, t: Throwable) {
             println("Failrue")
-            throw RuntimeException() //todo better exception and error
+            throw RuntimeException(t) //todo better exception and error
         }
     }
 }

@@ -54,7 +54,11 @@
         android:id="@+id/orderInfoFragment"
         android:name="com.github.pprochot.uj.android.fragments.OrderInfoFragment"
         tools:layout="@layout/fragment_order_info"
-        android:label="OrderInfoFragment" />
+        android:label="OrderInfoFragment" >
+        <argument
+            android:name="orderId"
+            app:argType="long" />
+    </fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.github.pprochot.uj.android.fragments.MapsFragment"
