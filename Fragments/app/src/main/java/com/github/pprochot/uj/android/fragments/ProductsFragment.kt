@@ -15,6 +15,7 @@ import javax.inject.Inject
 class ProductsFragment : Fragment(R.layout.fragment_products) {
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var productsAdapter: ProductsAdapter
 
     @Inject
     lateinit var realm: Realm
@@ -22,14 +23,22 @@ class ProductsFragment : Fragment(R.layout.fragment_products) {
     override fun onStart() {
         super.onStart()
 
-
         val products = realm.where(Product::class.java)
             .findAll()
             .toList()
 
         recyclerView = view?.findViewById(R.id.rv_products)!!
-        val adapter = ProductsAdapter(requireContext(), products)
-        recyclerView.adapter = adapter
+        productsAdapter = ProductsAdapter(requireContext(), products)
+        recyclerView.adapter = null
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        val productsToAdd = productsAdapter.productsToAdd
+        realm.executeTransactionAsync {
+
+        }
     }
 }

@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 
 class UserInfoViewModel : ViewModel() {
 
-    var backendId: Int? = null
-    var realmId: Int? = null
+    var userId: Int? = null
     var nickname: String? = null
 }

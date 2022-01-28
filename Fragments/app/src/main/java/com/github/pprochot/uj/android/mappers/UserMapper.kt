@@ -14,6 +14,7 @@ class UserMapper : RealmModelMapper<UserResponse, User> {
         user.id = userResponse.id.toLong() //TODO change to long
         user.name = userResponse.name
         user.password = userResponse.hashedPassword
+        user.isOauthUser = userResponse.isOauthUser
         return user
     }
 }

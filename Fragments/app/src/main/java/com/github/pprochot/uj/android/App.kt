@@ -28,6 +28,9 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        realm.executeTransaction {
+            realm.deleteAll()
+        }
         fetchDataFromServicesAsync(realm)
     }
 

@@ -23,7 +23,7 @@
             <include layout="@layout/product_info_layout"/>
 
             <ImageButton
-                android:id="@+id/button"
+                android:id="@+id/button_add_product_to_cart"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:foreground="@drawable/ic_add"

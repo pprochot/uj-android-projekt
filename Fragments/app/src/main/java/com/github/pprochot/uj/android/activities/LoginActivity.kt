@@ -28,10 +28,10 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
     override fun onStart() {
         super.onStart()
 
-        val account = GoogleSignIn.getLastSignedInAccount(this)
-        if (account != null) {
-            val navController = findNavController(R.id.nav_host_fragment_container)
-            navController.navigate(R.id.mainActivity)
-        }
+//        val account = GoogleSignIn.getLastSignedInAccount(this)
+//        if (account != null) {
+//            val navController = findNavController(R.id.nav_host_fragment_container)
+//            navController.navigate(R.id.mainActivity)
+//        }
     }
 }

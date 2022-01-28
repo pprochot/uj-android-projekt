@@ -16,6 +16,10 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        def url = rootProject.serviceUrl
+        //serviceUrl url
+        buildConfigField 'String', 'SERVICE_URL', url
     }
 
     buildTypes {

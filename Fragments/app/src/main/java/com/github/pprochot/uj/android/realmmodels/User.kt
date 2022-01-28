@@ -8,8 +8,5 @@ open class User : RealmObject() {
     var id: Long = 0
     var name: String = ""
     var password: String = ""
-
-    fun verifyPassword(password: String): Boolean {
-        return this.password == password;
-    }
+    var isOauthUser: Boolean = false
 }

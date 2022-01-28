@@ -9,12 +9,14 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
+import java.util.*
 import javax.inject.Singleton
 
 @Module
@@ -37,7 +39,7 @@ class ServicesModule {
     @Singleton
     fun retrofit(gsonConverterFactory: GsonConverterFactory): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(SERVICE_URL)
+            .baseUrl(BuildConfig.SERVICE_URL)
             .addConverterFactory(gsonConverterFactory)
             .build()
     }
