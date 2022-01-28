@@ -54,8 +54,4 @@ class ProductsAdapter(private val context: Context, private val products: List<P
     override fun getItemCount(): Int {
         return products.size
     }
-
-    fun saveProductsToCart() {
-
-    }
 }
