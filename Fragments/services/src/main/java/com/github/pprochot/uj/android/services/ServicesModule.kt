@@ -1,6 +1,5 @@
 package com.github.pprochot.uj.android.services
 
-import com.github.pprochot.uj.android.services.ServiceConfiguration.SERVICE_URL
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
 import dagger.Module
@@ -9,14 +8,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.File
 import java.time.Instant
 import java.time.LocalDateTime
-import java.time.OffsetDateTime
 import java.time.ZoneId
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
-import java.util.*
 import javax.inject.Singleton
 
 @Module
@@ -83,4 +77,8 @@ class ServicesModule {
             orderService
         )
     }
+
+    @Provides
+    @Singleton
+    fun stripeService(retrofit: Retrofit): StripeService = retrofit.create(StripeService::class.java)
 }

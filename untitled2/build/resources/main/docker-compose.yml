@@ -1,8 +1,0 @@
-version: "3.3"
-services:
-  postgres-db: # TODO probably name is invalid
-    image: "postgres:latest"
-    environment:
-      POSTGRES_PASSWORD: root
-    ports:
-      - "8001:5432"

@@ -16,19 +16,8 @@ class OrdersAdapter(private val context: Context, private val orders: List<Order
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var orderId: Long? = null
         val dateView: TextView = itemView.findViewById(R.id.order_date)
         val orderCost: TextView = itemView.findViewById(R.id.order_cost)
-
-        init {
-            itemView.setOnClickListener {
-                if (orderId != null) {
-                    val toOrderInfo =
-                        OrdersFragmentDirections.actionOrdersFragmentToOrderInfoFragment(orderId!!)
-                    it.findNavController().navigate(toOrderInfo)
-                }
-            }
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,9 +28,14 @@ class OrdersAdapter(private val context: Context, private val orders: List<Order
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val order = orders[position]
-        holder.orderId = order.id.toLong()
-        holder.dateView.text = order.date.toString() //TODO incorrect date
+        holder.dateView.text = order.date.toString()
         holder.orderCost.text = order.cost?.dbValue
+
+        holder.itemView.setOnClickListener {
+            val toOrderInfo =
+                OrdersFragmentDirections.actionOrdersFragmentToOrderInfoFragment(order.id.toLong())
+            it.findNavController().navigate(toOrderInfo)
+        }
     }
 
     override fun getItemCount(): Int {

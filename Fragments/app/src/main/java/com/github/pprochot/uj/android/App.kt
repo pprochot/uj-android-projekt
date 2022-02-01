@@ -5,6 +5,7 @@ import com.github.pprochot.uj.android.domain.ListResponse
 import com.github.pprochot.uj.android.mappers.MapperContainer
 import com.github.pprochot.uj.android.mappers.RealmModelMapper
 import com.github.pprochot.uj.android.services.ServiceContainer
+import com.stripe.android.PaymentConfiguration
 import dagger.hilt.android.HiltAndroidApp
 import io.realm.Realm
 import io.realm.RealmObject
@@ -32,6 +33,10 @@ class App : Application() {
             realm.deleteAll()
         }
         fetchDataFromServicesAsync(realm)
+        PaymentConfiguration.init(
+            applicationContext,
+            BuildConfig.SECRET_KEY_CLIENT
+        )
     }
 
     private fun fetchDataFromServicesAsync(realm: Realm) {

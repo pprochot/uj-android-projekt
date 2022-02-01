@@ -1,5 +1,6 @@
 package com.github.pprochot.uj.android.fragments
 
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +17,7 @@ import javax.inject.Inject
 class OrderInfoFragment : Fragment(R.layout.fragment_order_info) {
 
     private lateinit var recyclerView: RecyclerView
-    val args: OrderInfoFragmentArgs by navArgs()
+    private val args: OrderInfoFragmentArgs by navArgs()
 
     @Inject
     lateinit var realm: Realm
@@ -24,14 +25,15 @@ class OrderInfoFragment : Fragment(R.layout.fragment_order_info) {
     override fun onStart() {
         super.onStart()
 
-        val products = realm.where(Order::class.java).equalTo("id", args.orderId)
-            .findFirst()
-            ?.products
-            ?.toList() ?: emptyList()
+        val order = realm.where(Order::class.java).equalTo("id", args.orderId).findFirst()
+        val products = order?.products?.toList() ?: emptyList()
 
         recyclerView = view?.findViewById(R.id.rv_products_in_order)!!
         val adapter = ProductsInOrderAdapter(requireContext(), products)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        view?.findViewById<TextView>(R.id.text_order_cost)?.text = order?.cost?.value.toString()
+        view?.findViewById<TextView>(R.id.text_order_date)?.text = order?.date.toString()
     }
 }
