@@ -19,6 +19,8 @@ import com.github.pprochot.uj.android.mappers.UserMapper
 import com.github.pprochot.uj.android.realmmodels.User
 import com.github.pprochot.uj.android.services.UserService
 import com.github.pprochot.uj.android.viewmodels.UserInfoViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import io.realm.Realm
@@ -57,10 +59,8 @@ class MainActivity : AppCompatActivity() {
 
         val navView = findViewById<NavigationView>(R.id.nav_view)
         navView.setupWithNavController(navController)
-        /** TODO not working
-        findViewById<TextView>(R.id.text_nav_header_nickname)?.text =
+        navView.getHeaderView(0).findViewById<TextView>(R.id.text_nav_header_nickname)?.text =
             userInfoViewModel.nickname
-        **/
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -78,5 +78,15 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+
+        val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        mGoogleSignInClient.signOut()
     }
 }

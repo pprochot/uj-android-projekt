@@ -1,17 +1,13 @@
 package com.github.pprochot.uj.android.fragments
 
-import android.app.AlertDialog
-import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.github.pprochot.uj.android.BuildConfig
 import com.github.pprochot.uj.android.R
 import com.github.pprochot.uj.android.adapters.ProductsInCartAdapter
 import com.github.pprochot.uj.android.domain.request.CartRequest

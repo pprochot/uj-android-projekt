@@ -12,7 +12,6 @@ import io.realm.RealmObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.RuntimeException
 import javax.inject.Inject
 
 @HiltAndroidApp
@@ -69,13 +68,13 @@ class App : Application() {
                 }
             } else {
                 println("Not success")
-                throw RuntimeException()// todo better exception and error
+                throw RuntimeException("Couldn't fetch data from service")
             }
         }
 
         override fun onFailure(call: Call<ListResponse<ResponseModel>>, t: Throwable) {
             println("Failrue")
-            throw RuntimeException(t) //todo better exception and error
+            throw RuntimeException("Couldn't fetch data", t)
         }
     }
 }

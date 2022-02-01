@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.pprochot.uj.android.R
 import com.github.pprochot.uj.android.adapters.ProductsInOrderAdapter
-import com.github.pprochot.uj.android.realmmodels.Cart
 import com.github.pprochot.uj.android.realmmodels.Order
 import dagger.hilt.android.AndroidEntryPoint
 import io.realm.Realm

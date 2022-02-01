@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.pprochot.uj.android.R
 import com.github.pprochot.uj.android.realmmodels.Category
 
-class CategoriesAdapter(private val context: Context, private val categories: List<Category>) : //todo change to msth else?
+class CategoriesAdapter(private val context: Context, private val categories: List<Category>) :
     RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -1,6 +1,6 @@
 FROM openjdk:11-jdk
 EXPOSE 8080:8080
 RUN mkdir /app
-COPY ./build/install/untitled2/ /app/
+COPY ./build/install/Backend/ /app/
 WORKDIR /app/bin
-CMD ["./untitled2"]
+CMD ["./Backend"]

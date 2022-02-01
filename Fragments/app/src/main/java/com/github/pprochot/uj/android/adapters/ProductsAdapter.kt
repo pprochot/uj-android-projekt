@@ -4,14 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.github.pprochot.uj.android.R
 import com.github.pprochot.uj.android.realmmodels.Product
-import com.github.pprochot.uj.android.services.CartService
-import java.math.BigDecimal
 
 class ProductsAdapter(private val context: Context, private val products: List<Product>) :
     RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {

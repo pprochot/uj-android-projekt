@@ -28,4 +28,4 @@ class DatabaseConfig(config: ApplicationConfig) {
             )
         }
     }
-}a
+}

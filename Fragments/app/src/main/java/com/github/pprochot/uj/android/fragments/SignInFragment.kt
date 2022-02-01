@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.github.pprochot.uj.android.R
 import com.github.pprochot.uj.android.domain.request.UserRequest
 import com.github.pprochot.uj.android.domain.response.UserPostResponse
-import com.github.pprochot.uj.android.domain.response.UserResponse
 import com.github.pprochot.uj.android.mappers.UserMapper
 import com.github.pprochot.uj.android.realmmodels.Cart
 import com.github.pprochot.uj.android.realmmodels.User

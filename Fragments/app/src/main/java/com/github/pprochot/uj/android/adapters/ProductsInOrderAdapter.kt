@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.github.pprochot.uj.android.R
 import com.github.pprochot.uj.android.realmmodels.Product
-import java.math.BigDecimal
 
 class ProductsInOrderAdapter(private val context: Context, private val products: List<Product>) :
     RecyclerView.Adapter<ProductsInOrderAdapter.ViewHolder>() {

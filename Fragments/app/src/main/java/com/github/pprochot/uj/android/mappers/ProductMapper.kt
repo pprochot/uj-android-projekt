@@ -1,7 +1,6 @@
 package com.github.pprochot.uj.android.mappers
 
 import com.github.pprochot.uj.android.domain.response.ProductResponse
-import com.github.pprochot.uj.android.realmmodels.Category
 import com.github.pprochot.uj.android.realmmodels.Money
 import com.github.pprochot.uj.android.realmmodels.Product
 import javax.inject.Inject

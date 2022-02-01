@@ -1,11 +1,8 @@
 package com.github.pprochot.uj.android.mappers
 
 import com.github.pprochot.uj.android.domain.response.OrderResponse
-import com.github.pprochot.uj.android.domain.response.ProductResponse
 import com.github.pprochot.uj.android.realmmodels.Money
 import com.github.pprochot.uj.android.realmmodels.Order
-import com.github.pprochot.uj.android.realmmodels.Product
-import java.sql.Timestamp
 import java.time.ZoneId
 import java.util.*
 import javax.inject.Inject

@@ -20,7 +20,7 @@ class ServicesModule {
     @Provides
     @Singleton
     fun gsonConverterFactory(): GsonConverterFactory {
-        val localDateTimeDeserializer = JsonDeserializer { json, typeOfT, context ->
+        val localDateTimeDeserializer = JsonDeserializer { json, _, _ ->
             LocalDateTime.ofInstant(Instant.ofEpochMilli(json.asLong), ZoneId.systemDefault())
         }
         val gson = GsonBuilder()

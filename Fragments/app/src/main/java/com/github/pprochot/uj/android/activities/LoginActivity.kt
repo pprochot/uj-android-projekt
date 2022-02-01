@@ -3,7 +3,6 @@ package com.github.pprochot.uj.android.activities
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import com.github.pprochot.uj.android.R
 import com.github.pprochot.uj.android.viewmodels.LoginActivityViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -24,7 +23,6 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
             .build()
 
         loginActivityViewModel.mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-        loginActivityViewModel.mGoogleSignInClient.signOut()
     }
 
     override fun onStart() {
@@ -35,5 +33,10 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 //            val navController = findNavController(R.id.nav_host_fragment_container)
 //            navController.navigate(R.id.mainActivity)
 //        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        loginActivityViewModel.mGoogleSignInClient.signOut()
     }
 }
