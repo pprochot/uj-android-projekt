@@ -1,7 +1,5 @@
 package uj.android.pprochot.service
 
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.insertAndGetId
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -15,7 +13,6 @@ import uj.android.pprochot.models.dto.order.OrderResponse
 import uj.android.pprochot.models.entity.Order
 import uj.android.pprochot.models.entity.Product
 import uj.android.pprochot.models.entity.User
-import uj.android.pprochot.models.tables.CartsProductTable
 import uj.android.pprochot.models.tables.OrdersProductTable
 import uj.android.pprochot.models.tables.OrdersTable
 import uj.android.pprochot.models.tables.ProductsTable

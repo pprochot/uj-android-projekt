@@ -23,20 +23,20 @@ fun Route.userRoute(endpoint:String, userService: UserService) {
         route("/{id}") {
             get {
                 val id = call.parameters["id"]!!.toIntOrNull()
-                    ?: return@get call.respond(HttpStatusCode.BadRequest, "Invalid id format!")
+                    ?: return@get call.respond(HttpStatusCode.BadRequest, INVALID_ID_FORMAT)
                 call.respond(userService.getById(id))
             }
 
             put {
                 val id = call.parameters["id"]!!.toIntOrNull()
-                    ?: return@put call.respond(HttpStatusCode.BadRequest, "Invalid id format!")
+                    ?: return@put call.respond(HttpStatusCode.BadRequest, INVALID_ID_FORMAT)
                 val obj = call.receive<UserRequest>()
                 call.respond(userService.update(id, obj))
             }
 
             delete {
                 val id = call.parameters["id"]!!.toIntOrNull()
-                    ?: return@delete call.respond(HttpStatusCode.BadRequest, "Invalid id format!")
+                    ?: return@delete call.respond(HttpStatusCode.BadRequest, INVALID_ID_FORMAT)
                 userService.delete(id)
                 call.respond(HttpStatusCode.OK)
             }

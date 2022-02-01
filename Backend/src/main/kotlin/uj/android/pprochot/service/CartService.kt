@@ -1,11 +1,8 @@
 package uj.android.pprochot.service
 
-import io.ktor.html.*
-import org.jetbrains.exposed.sql.SizedIterable
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.jetbrains.exposed.sql.update
 import uj.android.pprochot.exceptions.CartAlreadyExistsException
 import uj.android.pprochot.exceptions.ProductListException
 import uj.android.pprochot.exceptions.ResourceNotFoundException

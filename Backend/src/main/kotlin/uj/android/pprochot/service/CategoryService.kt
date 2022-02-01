@@ -3,9 +3,9 @@ package uj.android.pprochot.service
 import org.jetbrains.exposed.sql.transactions.transaction
 import uj.android.pprochot.exceptions.ResourceNotFoundException
 import uj.android.pprochot.mappers.CategoryMapper
+import uj.android.pprochot.models.dto.ListResponse
 import uj.android.pprochot.models.dto.catalog.CategoryRequest
 import uj.android.pprochot.models.dto.catalog.CategoryResponse
-import uj.android.pprochot.models.dto.ListResponse
 import uj.android.pprochot.models.entity.Category
 
 class CategoryService(private val categoryMapper: CategoryMapper) : CrudService<CategoryRequest, CategoryResponse> {

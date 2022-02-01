@@ -17,7 +17,7 @@ import uj.android.pprochot.service.*
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
-fun Application.module(testing: Boolean = false) {
+fun Application.module() {
     val databaseConfig = DatabaseConfig(environment.config)
     databaseConfig.createTables()
 

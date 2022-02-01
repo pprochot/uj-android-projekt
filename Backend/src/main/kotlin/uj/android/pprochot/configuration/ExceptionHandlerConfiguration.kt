@@ -6,7 +6,6 @@ import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.response.*
 import org.jetbrains.exposed.exceptions.ExposedSQLException
-import org.postgresql.util.PSQLException
 import uj.android.pprochot.exceptions.CartAlreadyExistsException
 import uj.android.pprochot.exceptions.ProductListException
 import uj.android.pprochot.exceptions.ResourceNotFoundException
