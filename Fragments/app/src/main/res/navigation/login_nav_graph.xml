@@ -32,6 +32,9 @@
         android:label="MainActivity" >
         <argument
             android:name="userId"
-            app:argType="long" />
+            app:argType="integer" />
+        <argument
+            android:name="cartId"
+            app:argType="integer" />
     </activity>
 </navigation>

@@ -48,7 +48,7 @@ class ProductsFragment : Fragment(R.layout.fragment_products) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        cart = realm.where(Cart::class.java).equalTo("owner.id", userInfoViewModel.userId)
+        cart = realm.where(Cart::class.java).equalTo("id", userInfoViewModel.cartId)
             .findFirst()
     }
 

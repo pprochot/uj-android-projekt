@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private val userInfoViewModel: UserInfoViewModel by viewModels()
 
     @Inject
     lateinit var userService: UserService
@@ -40,8 +41,6 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var realm: Realm
 
-    private val userInfoViewModel: UserInfoViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -50,8 +49,8 @@ class MainActivity : AppCompatActivity() {
         val user = realm.where(User::class.java).equalTo("id", args.userId)
             .findFirst()
         userInfoViewModel.nickname = user?.name
-        userInfoViewModel.userId = user?.id?.toInt()
-
+        userInfoViewModel.userId = args.userId
+        userInfoViewModel.cartId = args.cartId
 
         drawerLayout = findViewById(R.id.drawer_layout)
         navController = findNavController(R.id.nav_host_fragment_container)

@@ -7,8 +7,10 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.github.pprochot.uj.android.R
 import com.github.pprochot.uj.android.domain.request.UserRequest
+import com.github.pprochot.uj.android.domain.response.UserPostResponse
 import com.github.pprochot.uj.android.domain.response.UserResponse
 import com.github.pprochot.uj.android.mappers.UserMapper
+import com.github.pprochot.uj.android.realmmodels.Cart
 import com.github.pprochot.uj.android.services.UserService
 import com.github.pprochot.uj.android.valdiators.SignUpValidator
 import com.google.android.material.textfield.TextInputEditText
@@ -72,17 +74,20 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
         userService.create(userRequest).enqueue(ServiceRegisterCallBack())
     }
 
-    private inner class ServiceRegisterCallBack :
-        Callback<UserResponse> {
-
-        override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+    private inner class ServiceRegisterCallBack : Callback<UserPostResponse> {
+        override fun onResponse(call: Call<UserPostResponse>, response: Response<UserPostResponse>) {
             if (response.isSuccessful && response.body() != null) {
                 val user = userMapper.map(response.body()!!)
+                val cart = Cart().apply {
+                    id = response.body()!!.cartId
+                    owner = user
+                }
                 realm.executeTransaction {
                     it.insert(user)
+                    it.insertOrUpdate(cart)
                 }
                 val toMainActivity =
-                    SignUpFragmentDirections.actionSignUpFragmentToMainActivity(user.id)
+                    SignUpFragmentDirections.actionSignUpFragmentToMainActivity(user.id, cart.id)
                 navController.navigate(toMainActivity)
             } else if (response.code() == 409) { // Conflict, it means user already exists
                 Toast.makeText(requireContext(), "User is already registered!", Toast.LENGTH_SHORT)
@@ -91,7 +96,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
             signUpButton?.isClickable = true
         }
 
-        override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+        override fun onFailure(call: Call<UserPostResponse>, t: Throwable) {
             Toast.makeText(requireContext(), "Could not sign up. Try again.", Toast.LENGTH_SHORT)
                 .show()
             signUpButton?.isClickable = true

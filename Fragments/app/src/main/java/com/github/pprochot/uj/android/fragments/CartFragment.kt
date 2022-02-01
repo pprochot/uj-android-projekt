@@ -70,7 +70,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        cart = realm.where(Cart::class.java).equalTo("owner.id", userInfoViewModel.userId)
+        cart = realm.where(Cart::class.java).equalTo("id", userInfoViewModel.cartId)
             .findFirst()
 
         paymentSheet = PaymentSheet(this, ::onPaymentSheetResult)
@@ -97,8 +97,13 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     }
 
     private fun fetchPaymentIntent() {
-        stripeService.getPaymentIntent(userInfoViewModel.userId!!)
-            .enqueue(FinalizeOrderCallback())
+        if (cart != null && !cart!!.products.isEmpty()) {
+            stripeService.getPaymentIntent(userInfoViewModel.userId!!)
+                .enqueue(FinalizeOrderCallback())
+        } else {
+            Toast.makeText(requireContext(), "Empty cart.", Toast.LENGTH_LONG).show()
+            realizeOrder()
+        }
     }
 
     private fun onPaymentSheetResult(paymentResult: PaymentSheetResult) {

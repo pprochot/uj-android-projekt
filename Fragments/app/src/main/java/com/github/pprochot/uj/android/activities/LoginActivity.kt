@@ -22,7 +22,9 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
+
         loginActivityViewModel.mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        loginActivityViewModel.mGoogleSignInClient.signOut()
     }
 
     override fun onStart() {

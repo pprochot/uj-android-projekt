@@ -5,7 +5,7 @@ import io.realm.annotations.PrimaryKey
 
 open class User : RealmObject() {
     @PrimaryKey
-    var id: Long = 0
+    var id: Int = 0
     var name: String = ""
     var password: String = ""
     var isOauthUser: Boolean = false

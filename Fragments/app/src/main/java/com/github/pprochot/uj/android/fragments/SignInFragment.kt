@@ -9,8 +9,10 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.github.pprochot.uj.android.R
 import com.github.pprochot.uj.android.domain.request.UserRequest
+import com.github.pprochot.uj.android.domain.response.UserPostResponse
 import com.github.pprochot.uj.android.domain.response.UserResponse
 import com.github.pprochot.uj.android.mappers.UserMapper
+import com.github.pprochot.uj.android.realmmodels.Cart
 import com.github.pprochot.uj.android.realmmodels.User
 import com.github.pprochot.uj.android.services.UserService
 import com.github.pprochot.uj.android.valdiators.SignInValidator
@@ -37,6 +39,11 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
         const val RC_SIGN_IN = 1
     }
 
+    private var nicknameView: TextInputEditText? = null
+    private var passwordView: TextInputEditText? = null
+    private var signInButton: Button? = null
+    private var googleSignInButton: SignInButton? = null
+    private lateinit var navController: NavController
     private val loginActivityViewModel: LoginActivityViewModel by activityViewModels()
 
     @Inject
@@ -47,12 +54,6 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
     @Inject
     lateinit var userService: UserService
-
-    private var nicknameView: TextInputEditText? = null
-    private var passwordView: TextInputEditText? = null
-    private var signInButton: Button? = null
-    private var googleSignInButton: SignInButton? = null
-    private lateinit var navController: NavController
 
     override fun onStart() {
         super.onStart()
@@ -94,16 +95,25 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
             val account: GoogleSignInAccount = completedTask.getResult(ApiException::class.java)
             val realmUser = realm.where(User::class.java).equalTo("name", account.email)
                 .findFirst()
-            if (realmUser == null) {
-                registerOauthUser(UserRequest(account.email!!, "", true))
-            } else if (realmUser.isOauthUser) {
-                val toMainActivity =
-                    SignInFragmentDirections.actionSignInFragmentToMainActivity(realmUser.id)
-                findNavController().navigate(toMainActivity)
-            } else {
-                Toast.makeText(
-                    requireContext(), "User is not an Oauth user.", Toast.LENGTH_SHORT
-                ).show()
+            val cart = realm.where(Cart::class.java).equalTo("owner.name", account.email)
+                .findFirst()
+            when {
+                realmUser == null -> {
+                    registerOauthUser(UserRequest(account.email!!, "", true))
+                }
+                realmUser.isOauthUser -> {
+                    val toMainActivity =
+                        SignInFragmentDirections.actionSignInFragmentToMainActivity(
+                            realmUser.id,
+                            cart!!.id // If user exists, then also must the cart
+                        )
+                    findNavController().navigate(toMainActivity)
+                }
+                else -> {
+                    Toast.makeText(
+                        requireContext(), "User is not an Oauth user.", Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         } catch (e: ApiException) {
             Toast.makeText(
@@ -116,17 +126,23 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
         userService.create(userRequest).enqueue(ServiceRegisterCallBack())
     }
 
-    private inner class ServiceRegisterCallBack :
-        Callback<UserResponse> {
-
-        override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+    private inner class ServiceRegisterCallBack : Callback<UserPostResponse> {
+        override fun onResponse(
+            call: Call<UserPostResponse>,
+            response: Response<UserPostResponse>
+        ) {
             if (response.isSuccessful && response.body() != null) {
                 val user = userMapper.map(response.body()!!)
+                val cart = Cart().apply {
+                    id = response.body()!!.cartId
+                    owner = user
+                }
                 realm.executeTransaction {
                     it.insert(user)
+                    it.insertOrUpdate(cart)
                 }
                 val toMainActivity =
-                    SignInFragmentDirections.actionSignInFragmentToMainActivity(user.id)
+                    SignInFragmentDirections.actionSignInFragmentToMainActivity(user.id, cart.id)
                 navController.navigate(toMainActivity)
             } else if (response.code() == 409) { // Conflict, it means user already exists
                 Toast.makeText(requireContext(), "User is already registered!", Toast.LENGTH_SHORT)
@@ -134,7 +150,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
             }
         }
 
-        override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+        override fun onFailure(call: Call<UserPostResponse>, t: Throwable) {
             Toast.makeText(requireContext(), "Could not sign up. Try again.", Toast.LENGTH_SHORT)
                 .show()
         }
@@ -147,15 +163,18 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
         if (isValidInput(nickname, password)) {
             val user = realm.where(User::class.java).equalTo("name", nickname).findFirst()
+            val cart = realm.where(Cart::class.java).equalTo("owner.name", nickname)
+                .findFirst()
+
             if (user == null) {
                 Toast.makeText(
                     requireContext(), "User does not exist. Sign up first.", Toast.LENGTH_SHORT
                 ).show()
-                return
-            }
-            if (BCrypt.checkpw(password, user.password)) {
-                val toMainActivity =
-                    SignInFragmentDirections.actionSignInFragmentToMainActivity(user.id)
+            } else if (BCrypt.checkpw(password, user.password)) {
+                val toMainActivity = SignInFragmentDirections.actionSignInFragmentToMainActivity(
+                    user.id,
+                    cart!!.id //Cart must exist if user exists
+                )
                 navController.navigate(toMainActivity)
             }
         }

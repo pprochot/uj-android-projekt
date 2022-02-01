@@ -1,5 +1,6 @@
 package com.github.pprochot.uj.android.mappers
 
+import com.github.pprochot.uj.android.domain.response.UserPostResponse
 import com.github.pprochot.uj.android.domain.response.UserResponse
 import com.github.pprochot.uj.android.realmmodels.User
 
@@ -11,7 +12,16 @@ class UserMapper : RealmModelMapper<UserResponse, User> {
 
     override fun map(userResponse: UserResponse): User {
         val user = User()
-        user.id = userResponse.id.toLong() //TODO change to long
+        user.id = userResponse.id
+        user.name = userResponse.name
+        user.password = userResponse.hashedPassword
+        user.isOauthUser = userResponse.isOauthUser
+        return user
+    }
+
+    fun map(userResponse: UserPostResponse): User {
+        val user = User()
+        user.id = userResponse.id
         user.name = userResponse.name
         user.password = userResponse.hashedPassword
         user.isOauthUser = userResponse.isOauthUser

@@ -2,6 +2,7 @@ package com.github.pprochot.uj.android.services
 
 import com.github.pprochot.uj.android.domain.ListResponse
 import com.github.pprochot.uj.android.domain.request.UserRequest
+import com.github.pprochot.uj.android.domain.response.UserPostResponse
 import com.github.pprochot.uj.android.domain.response.UserResponse
 import retrofit2.Call
 import retrofit2.http.Body
@@ -19,7 +20,7 @@ interface UserService {
     }
 
     @POST(USERS_ENDPOINT)
-    fun create(@Body request: UserRequest): Call<UserResponse>
+    fun create(@Body request: UserRequest): Call<UserPostResponse>
 
     @GET(USERS_ENDPOINT)
     fun getAll(): Call<ListResponse<UserResponse>>
