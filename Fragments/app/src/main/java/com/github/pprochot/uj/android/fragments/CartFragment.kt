@@ -98,7 +98,6 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 .enqueue(FinalizeOrderCallback())
         } else {
             Toast.makeText(requireContext(), "Empty cart.", Toast.LENGTH_LONG).show()
-            realizeOrder()
         }
     }
 
